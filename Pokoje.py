@@ -3,7 +3,18 @@ import os
 import pygame
 
 podlogaO=pygame.image.load(os.path.join('grafiki', 'podloga.png'))
-
+gorna_scianaO=pygame.image.load(os.path.join('grafiki', 'gorna_sciana.png'))
+lewy_dolnyO=pygame.image.load(os.path.join('grafiki', 'lewy_dolny.png'))
+prawy_dolnyO=pygame.image.load(os.path.join('grafiki', 'prawy_dolny.png'))
+prawa_scianaO=pygame.image.load(os.path.join('grafiki', 'prawa_sciana.png'))
+lewa_scianaO=pygame.image.load(os.path.join('grafiki', 'lewa_sciana.png'))
+dolna_scianaO=pygame.image.load(os.path.join('grafiki', 'dolna_sciana.png'))
+lewy_dolny2O=pygame.image.load(os.path.join('grafiki', 'lewy_dolny2.png'))
+prawy_dolny2O=pygame.image.load(os.path.join('grafiki', 'prawy_dolny2.png'))
+lewy_gorny2O=pygame.image.load(os.path.join('grafiki', 'lewy_gorny2.png'))
+prawy_gorny2O=pygame.image.load(os.path.join('grafiki', 'prawy_gorny2.png'))
+lewy_gornyO=pygame.image.load(os.path.join('grafiki', 'lewy_gorny.png'))
+prawy_gornyO=pygame.image.load(os.path.join('grafiki', 'prawy_gorny.png'))
 class pokoj:
     def __init__(self):
 
@@ -268,47 +279,47 @@ class pokoj:
 
 
         
-    def rzut(self,x,y):
+    def rzut(self,a,b):
 
 
         for x in self.lewy_gorny:
-            pygame.draw.rect(ekran,(0,100,255),x,4)
+            ekran.blit(lewy_gornyO,x.move(a,b))
 
         for x in self.prawy_dolny:
-            pygame.draw.rect(ekran,(255,150,0),x,4)
+            ekran.blit(prawy_dolnyO,x.move(a,b))
 
         for x in self.prawy_gorny:
-            pygame.draw.rect(ekran,(255,255,0),x,4)
+            ekran.blit(prawy_gornyO,x.move(a,b))
 
         for x in self.prawy_dolny2:
-            pygame.draw.rect(ekran,(255,150,0),x,4)
+            ekran.blit(prawy_dolny2O,x.move(a,b))
 
         for x in self.lewy_gorny2:
-            pygame.draw.rect(ekran,(0,100,255),x,4)
+            ekran.blit(lewy_gorny2O,x.move(a,b))
 
         for x in self.lewy_dolny:
-            pygame.draw.rect(ekran,(150,0,150),x,4)
+            ekran.blit(lewy_dolnyO,x.move(a,b))
             
         for x in self.prawa_sciana:
-            pygame.draw.rect(ekran,(255,255,255),x,4)
+            ekran.blit(prawa_scianaO,x.move(a,b))
 
         for x in self.gorna_sciana:
-            pygame.draw.rect(ekran,(255,0,0),x,4)
+            ekran.blit(gorna_scianaO,x.move(a,b))
         
         for x in self.lewy_dolny2:
-            pygame.draw.rect(ekran,(150,0,150),x,4)
+            ekran.blit(lewy_dolny2O,x.move(a,b))
 
         for x in self.prawy_gorny2:
-            pygame.draw.rect(ekran,(255,255,0),x,4)
+            ekran.blit(prawy_gorny2O,x.move(a,b))
 
         for x in self.lewa_sciana:
-            pygame.draw.rect(ekran,(100,150,0),x,4)
+            ekran.blit(lewa_scianaO,x.move(a,b))
 
         for x in self.dolna_sciana:
-            pygame.draw.rect(ekran,(0,255,255),x,4)
+            ekran.blit(dolna_scianaO,x.move(a,b))
 
         for x in self.podloga:
-            ekran.blit(podlogaO,x)
+            ekran.blit(podlogaO,x.move(a,b))
 
         for x in self.test:
             pygame.draw.rect(ekran,(100, 255, 50),x,4)
@@ -318,6 +329,9 @@ if __name__ == "__main__":
     import pygame
     print("elo")
     x = pokoj()
+    y = pokoj()
+    z = pokoj()
+    z1 = pokoj()
     print("rozmiar x - " + str(x.rozmiar_x))
     print("rozmiar y - " + str(x.rozmiar_y))
     print("pozycja x - " + str(x.pozycja_x))
@@ -326,13 +340,16 @@ if __name__ == "__main__":
     print(x.bok2y)
 
 
-    ekran = pygame.display.set_mode((500,500))
+    ekran = pygame.display.set_mode((1000,1000))
 
     while 1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
         ekran.fill((0,0,0))
-        x.rzut(15,12)
+        x.rzut(0,0)
+        y.rzut(480,0)
+        z.rzut(480,480)
+        z1.rzut(0,480)
         pygame.display.flip()
 
 
