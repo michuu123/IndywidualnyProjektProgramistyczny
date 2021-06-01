@@ -15,10 +15,12 @@ lewy_gorny2O=pygame.image.load(os.path.join('grafiki', 'lewy_gorny2.png'))
 prawy_gorny2O=pygame.image.load(os.path.join('grafiki', 'prawy_gorny2.png'))
 lewy_gornyO=pygame.image.load(os.path.join('grafiki', 'lewy_gorny.png'))
 prawy_gornyO=pygame.image.load(os.path.join('grafiki', 'prawy_gorny.png'))
+ekran = pygame.display.set_mode((1000,1000))
 class pokoj:
     def __init__(self):
 
-
+        self.X=100
+        self.Y=200
 
         self.rozmiar_x=random.randrange(4)+5
         self.rozmiar_y=random.randrange(4)+5
@@ -277,49 +279,54 @@ class pokoj:
             for y in range(self.pozycja_y+self.rozmiar_y-self.bok4y-5):
                 self.podloga.append(pygame.Rect((self.pozycja_x+x+1)*48,(6+y)*48,48,48))
 
+    def kolizja(self,x,y):
+        for a in self.podloga:
+            if x+20>a.left+self.X and x<a.left+a.width+self.X:
+                if y>a.top+self.Y and y<a.height+a.top+self.Y:
+                    return 0
+        return 1
 
-        
-    def rzut(self,a,b):
+    def rzut(self):
 
 
         for x in self.lewy_gorny:
-            ekran.blit(lewy_gornyO,x.move(a,b))
+            ekran.blit(lewy_gornyO,x.move(self.X,self.Y))
 
         for x in self.prawy_dolny:
-            ekran.blit(prawy_dolnyO,x.move(a,b))
+            ekran.blit(prawy_dolnyO,x.move(self.X,self.Y))
 
         for x in self.prawy_gorny:
-            ekran.blit(prawy_gornyO,x.move(a,b))
+            ekran.blit(prawy_gornyO,x.move(self.X,self.Y))
 
         for x in self.prawy_dolny2:
-            ekran.blit(prawy_dolny2O,x.move(a,b))
+            ekran.blit(prawy_dolny2O,x.move(self.X,self.Y))
 
         for x in self.lewy_gorny2:
-            ekran.blit(lewy_gorny2O,x.move(a,b))
+            ekran.blit(lewy_gorny2O,x.move(self.X,self.Y))
 
         for x in self.lewy_dolny:
-            ekran.blit(lewy_dolnyO,x.move(a,b))
+            ekran.blit(lewy_dolnyO,x.move(self.X,self.Y))
             
         for x in self.prawa_sciana:
-            ekran.blit(prawa_scianaO,x.move(a,b))
+            ekran.blit(prawa_scianaO,x.move(self.X,self.Y))
 
         for x in self.gorna_sciana:
-            ekran.blit(gorna_scianaO,x.move(a,b))
+            ekran.blit(gorna_scianaO,x.move(self.X,self.Y))
         
         for x in self.lewy_dolny2:
-            ekran.blit(lewy_dolny2O,x.move(a,b))
+            ekran.blit(lewy_dolny2O,x.move(self.X,self.Y))
 
         for x in self.prawy_gorny2:
-            ekran.blit(prawy_gorny2O,x.move(a,b))
+            ekran.blit(prawy_gorny2O,x.move(self.X,self.Y))
 
         for x in self.lewa_sciana:
-            ekran.blit(lewa_scianaO,x.move(a,b))
+            ekran.blit(lewa_scianaO,x.move(self.X,self.Y))
 
         for x in self.dolna_sciana:
-            ekran.blit(dolna_scianaO,x.move(a,b))
+            ekran.blit(dolna_scianaO,x.move(self.X,self.Y))
 
         for x in self.podloga:
-            ekran.blit(podlogaO,x.move(a,b))
+            ekran.blit(podlogaO,x.move(self.X,self.Y))
 
         for x in self.test:
             pygame.draw.rect(ekran,(100, 255, 50),x,4)
@@ -338,18 +345,30 @@ if __name__ == "__main__":
     print("pozycja y - " + str(x.pozycja_y))
     print(x.bok2x)
     print(x.bok2y)
+    X=5
+    Y=5
 
-
-    ekran = pygame.display.set_mode((1000,1000))
+    
 
     while 1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            X-=1
+        if keys[pygame.K_RIGHT]:
+            X+=1
+        if keys[pygame.K_DOWN]:
+            Y+=1
+        if keys[pygame.K_UP]:
+            Y-=1
         ekran.fill((0,0,0))
-        x.rzut(0,0)
-        y.rzut(480,0)
-        z.rzut(480,480)
-        z1.rzut(0,480)
+        x.kolizja(1,3)
+        x.rzut()
+        if x.kolizja(X,Y) == 0:
+            pygame.draw.rect(ekran,(0,255,0),(X,Y,48,48),0)
+        else:
+            pygame.draw.rect(ekran,(255,0,0),(X,Y,48,48),0)
         pygame.display.flip()
 
 
