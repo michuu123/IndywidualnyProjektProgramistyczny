@@ -15,12 +15,17 @@ lewy_gorny2O=pygame.image.load(os.path.join('grafiki', 'lewy_gorny2.png'))
 prawy_gorny2O=pygame.image.load(os.path.join('grafiki', 'prawy_gorny2.png'))
 lewy_gornyO=pygame.image.load(os.path.join('grafiki', 'lewy_gorny.png'))
 prawy_gornyO=pygame.image.load(os.path.join('grafiki', 'prawy_gorny.png'))
-ekran = pygame.display.set_mode((1000,1000))
-class pokoj:
-    def __init__(self):
 
-        self.X=100
-        self.Y=200
+szerokosc=1000
+wysokosc=1000
+
+ekran = pygame.display.set_mode((szerokosc,wysokosc))
+
+class pokoj:
+    def __init__(self,a,b):
+
+        self.lokacjaX=a
+        self.lokacjaY=b
 
         self.rozmiar_x=random.randrange(4)+5
         self.rozmiar_y=random.randrange(4)+5
@@ -281,52 +286,53 @@ class pokoj:
 
     def kolizja(self,x,y):
         for a in self.podloga:
-            if x+20>a.left+self.X and x<a.left+a.width+self.X:
-                if y>a.top+self.Y and y<a.height+a.top+self.Y:
+            if x>a.left-55 and x<a.left+a.width+3:
+                if y>a.top-40 and y<a.height+a.top-4:
                     return 0
         return 1
 
-    def rzut(self):
+    def rzut(self,a,b):
+
 
 
         for x in self.lewy_gorny:
-            ekran.blit(lewy_gornyO,x.move(self.X,self.Y))
+            ekran.blit(lewy_gornyO,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.prawy_dolny:
-            ekran.blit(prawy_dolnyO,x.move(self.X,self.Y))
+            ekran.blit(prawy_dolnyO,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.prawy_gorny:
-            ekran.blit(prawy_gornyO,x.move(self.X,self.Y))
+            ekran.blit(prawy_gornyO,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.prawy_dolny2:
-            ekran.blit(prawy_dolny2O,x.move(self.X,self.Y))
+            ekran.blit(prawy_dolny2O,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.lewy_gorny2:
-            ekran.blit(lewy_gorny2O,x.move(self.X,self.Y))
+            ekran.blit(lewy_gorny2O,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.lewy_dolny:
-            ekran.blit(lewy_dolnyO,x.move(self.X,self.Y))
+            ekran.blit(lewy_dolnyO,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
             
         for x in self.prawa_sciana:
-            ekran.blit(prawa_scianaO,x.move(self.X,self.Y))
+            ekran.blit(prawa_scianaO,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.gorna_sciana:
-            ekran.blit(gorna_scianaO,x.move(self.X,self.Y))
+            ekran.blit(gorna_scianaO,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
         
         for x in self.lewy_dolny2:
-            ekran.blit(lewy_dolny2O,x.move(self.X,self.Y))
+            ekran.blit(lewy_dolny2O,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.prawy_gorny2:
-            ekran.blit(prawy_gorny2O,x.move(self.X,self.Y))
+            ekran.blit(prawy_gorny2O,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.lewa_sciana:
-            ekran.blit(lewa_scianaO,x.move(self.X,self.Y))
+            ekran.blit(lewa_scianaO,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.dolna_sciana:
-            ekran.blit(dolna_scianaO,x.move(self.X,self.Y))
+            ekran.blit(dolna_scianaO,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.podloga:
-            ekran.blit(podlogaO,x.move(self.X,self.Y))
+            ekran.blit(podlogaO,x.move(szerokosc/2-240+(self.lokacjaX-a)*480,wysokosc/2-240-(self.lokacjaY-b)*480))
 
         for x in self.test:
             pygame.draw.rect(ekran,(100, 255, 50),x,4)
